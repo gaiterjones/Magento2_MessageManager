@@ -86,17 +86,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     public function whitelist(): array
     {
         return array(
-            'elgentos_magento_lcp_product_prewarm',
             'gaiterjones_product_save',
-            'gaiterjones_message_manager',
-            'product_action_attribute.update',
-            'product_action_attribute.website.update',
-            'async.operations.all',
-            'inventory.source.items.cleanup',
-            'inventory.mass.update',
-            'inventory.reservations.cleanup',
-            'inventory.reservations.update',
-            'media.storage.catalog.image.resize'
+            'gaiterjones_message_manager'
         );
     }
 

@@ -60,6 +60,7 @@ class Config
 
             $consumerconfig[$consumer] = ['connection' => 'amqp'];
         }
+        
         $buildconfig['topics']=$topic;
         $buildconfig['config']=$config;
         $buildconfig['consumers']=$consumerconfig;

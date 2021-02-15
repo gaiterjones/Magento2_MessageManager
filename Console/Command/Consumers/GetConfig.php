@@ -77,11 +77,21 @@ class GetConfig extends Command
         {
             if ($whitelist)
             {
+                if (count($consumers['db']) > 0)
+                {
                 $message='The following WHITELISTED consumers will be CONFIGURED for amqp...'. PHP_EOL.
                     print_r($this->helper->config->buildconfig($this->helper->whitelist(),$this->helper->blacklist(),$saveconfig),true);
+                } else {
+                    $message='ERROR: All queues already configured for AMQP...';
+                }
             } else {
+                if (count($consumers['db']) > 0)
+                {
                 $message='The following DB consumers will be CONFIGURED for amqp...'. PHP_EOL.
                     print_r($this->helper->config->buildconfig($consumers['db'],$this->helper->blacklist(),$saveconfig),true);
+                } else {
+                    $message='ERROR: All queues already configured for AMQP...';
+                }
             }
         } else {
 
