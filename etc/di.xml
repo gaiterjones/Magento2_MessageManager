@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="messagemanager-get-consumers" xsi:type="object">Gaiterjones\MessageManager\Console\Command\Consumers\GetConsumers</item>
+                <item name="messagemanager-get-config" xsi:type="object">Gaiterjones\MessageManager\Console\Command\Consumers\GetConfig</item>
+                <item name="messagemanager-test-queue" xsi:type="object">Gaiterjones\MessageManager\Console\Command\Consumers\TestQueue</item>
+            </argument>
+        </arguments>
+    </type>
+</config>
