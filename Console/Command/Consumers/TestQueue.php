@@ -54,13 +54,33 @@ class TestQueue extends Command
         $topicName='gaiterjones.magento.message.manager';
         $topic = (string)$input->getOption(self::OPTION_TOPIC);
         if ($topic){$topicName=$input->getOption(self::OPTION_TOPIC);}
+
         $message = 'queue:topic '. $topicName. ' testing...';
 
+        // TEST MESSAGE
         $this->helper->publisher->execute($topicName,array(
             'action' => 'test',
             'data' => $message
         ));
 
+        // EMAIL EXAMPLE
+        //
+        /*
+        $this->helper->publisher->execute($topicName,array(
+            'action' => 'sendmailtocustomer',
+            'data' => array(
+                'sendto' => 'paj@gaiterjones.com',
+                'customerid' => '48',
+                'emailtemplate' => '3',
+                'storeid' => 0,
+                'sender' => array(
+                    'email' => 'paj@gaiterjones.com',
+                    'name' => 'PAJ'
+                )
+            )
+        ));
+        */
+       
         $output->writeln(sprintf($message));
         return 0;
     }
