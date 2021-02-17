@@ -39,7 +39,7 @@ class Consumer
                     // custom action goes here...
                     break;
             default:
-                print_r(json_decode($message)).PHP_EOL;
+                print_r($message).PHP_EOL;
         }
 
     }

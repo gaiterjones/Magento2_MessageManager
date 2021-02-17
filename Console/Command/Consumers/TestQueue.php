@@ -57,14 +57,16 @@ class TestQueue extends Command
 
         $message = 'queue:topic '. $topicName. ' testing...';
 
-        // TEST MESSAGE
+        // SIMPLE TEST MESSAGE
         $this->helper->publisher->execute($topicName,array(
             'action' => 'test',
-            'data' => $message
+            'data' => array('message' => $message)
         ));
 
         // EMAIL EXAMPLE
-        //
+        // to CUSTOM EMAIL address i.e. admin
+        // email template = id of email template
+        // customerid = id of customer
         /*
         $this->helper->publisher->execute($topicName,array(
             'action' => 'sendmailtocustomer',
@@ -75,12 +77,24 @@ class TestQueue extends Command
                 'storeid' => 0,
                 'sender' => array(
                     'email' => 'paj@gaiterjones.com',
-                    'name' => 'PAJ'
+                    'name' => 'TEST'
                 )
             )
         ));
+
+        // to CUSTOMER EMAIL address from customer account
+        $this->helper->publisher->execute($topicName,array(
+            'action' => 'sendmailtocustomer',
+            'data' => array(
+                'sendto' => 0,
+                'customerid' => '48',
+                'emailtemplate' => '3',
+                'storeid' => 0,
+                'sender' => 0
+            )
+        ));
         */
-       
+
         $output->writeln(sprintf($message));
         return 0;
     }

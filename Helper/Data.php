@@ -81,17 +81,25 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
 
-    // manual list of amqp enabled consumers
+    // manual list of amqp enabled consumers #blacklivesmatter
     //
     public function whitelist(): array
     {
         return array(
+            'elgentos_magento_lcp_product_prewarm',
             'gaiterjones_product_save',
-            'gaiterjones_message_manager'
+            'gaiterjones_message_manager',
+            'product_action_attribute.update',
+            'product_action_attribute.website.update',
+            'inventory.source.items.cleanup',
+            'inventory.mass.update',
+            'inventory.reservations.cleanup',
+            'inventory.reservations.update',
+            'media.storage.catalog.image.resize'
         );
     }
 
-    // exclude these from env.php config
+    // exclude these from env.php config i.e. already amqp enabled
     //
     public function blacklist(): array
     {

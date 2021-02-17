@@ -6,6 +6,7 @@ namespace Gaiterjones\MessageManager\Model;
 
 use Exception;
 use Magento\Framework\App\Area;
+use Magento\Customer\Model\Customer;
 use Magento\Customer\Model\CustomerRegistry;
 use Magento\Framework\Mail\Template\TransportBuilder;
 use Magento\Framework\App\Config\ScopeConfigInterface;
@@ -51,7 +52,7 @@ class SendMail
      *
      * @return bool
      */
-    public function sendMailToCustomer($sendTo, $customerId, $emailTemplate, $storeId, $sender)
+    public function sendMailToCustomer($sendTo=false, $customerId=false, $emailTemplate, $storeId, $sender)
     {
 
         try {
@@ -64,23 +65,46 @@ class SendMail
                 );
             }
 
-            /** @var Customer $mergedCustomerData */
             $customer=$this->getCustomerById($customerId);
-            $customerEmailData = $this->customerRegistry->retrieve($customer->getId());
-            $customerEmailData->setData('name', $customerEmailData->getName());
+            $toName='Unknown';
 
-            $transport = $this->transportBuilder
-                ->setTemplateIdentifier($emailTemplate)
-                ->setTemplateOptions([
-                    'area' => Area::AREA_FRONTEND,
-                    'store' => $storeId,
-                ])
-                ->setTemplateVars([
-                    'customer' => $customerEmailData
-                ])
-                ->setFrom($sender)
-                ->addTo($sendTo)
-                ->getTransport();
+            if ($customer instanceof Customer)
+            {
+                $toName=$customer->getName();
+                $customer->setData('name', $toName);
+
+                if (!$sendTo)
+                {
+                    $sendTo=$customer->getEmail();
+                }
+
+                $transport = $this->transportBuilder
+                    ->setTemplateIdentifier($emailTemplate)
+                    ->setTemplateOptions([
+                        'area' => Area::AREA_FRONTEND,
+                        'store' => $storeId,
+                    ])
+                    ->setTemplateVars([
+                        'customer' => $customer
+                    ])
+                    ->setFrom($sender)
+                    ->addTo($sendTo)
+                    ->getTransport();
+
+            } else {
+
+                $transport = $this->transportBuilder
+                    ->setTemplateIdentifier($emailTemplate)
+                    ->setTemplateOptions([
+                        'area' => Area::AREA_FRONTEND,
+                        'store' => $storeId,
+                    ])
+                    ->setFrom($sender)
+                    ->addTo($sendTo)
+                    ->getTransport();
+            }
+
+
             $transport->sendMessage();
 
             return true;
@@ -88,37 +112,28 @@ class SendMail
         } catch (Exception $e) {
 
             $this->logger->critical($e->getMessage());
-            $this->logger->info('sendto:'.$sendTo.' customerId:'.$customerId.' emailTemplate:'.$emailTemplate.' storeId:'.$storeId.' sender:'.print_r($sender,true). ' customer:'. $customerEmailData->getName());
+            $this->logger->info('sendto:'.$sendTo.' customerId:'.$customerId.' emailTemplate:'.$emailTemplate.' storeId:'.$storeId.' sender:'.print_r($sender,true). ' name:'. $toName);
         }
 
         return false;
     }
 
-    /**
-     * @param $customerId
-     *
-     * @return CustomerInterface
-     * @throws LocalizedException
-     * @throws NoSuchEntityException
-     */
     public function getCustomerById($customerId)
     {
-        $customerModel = $this->customerRegistry->retrieve($customerId);
-
-        return $customerModel->getDataModel();
+        return $this->customerRegistry->retrieve($customerId);
     }
 
     public function getStoreEmail()
     {
         return $this->scopeConfig->getValue(
-            'trans_email/ident_sales/email',
+            'trans_email/ident_general/email',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
     }
     public function getStorename()
     {
-        return $this->_scopeConfig->getValue(
-            'trans_email/ident_sales/name',
+        return $this->scopeConfig->getValue(
+            'trans_email/ident_general/name',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
     }
