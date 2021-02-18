@@ -24,22 +24,29 @@ class Consumer
 
     public function processMessage(string $message)
     {
-        $message=json_decode($message,true);
-        $action=$message['action'];
-        $data=$message['data'];
+        $now = new \DateTime('NOW', new \DateTimeZone('UTC'));
+        $timestamp=$now->format('F d Y H:i:s'). ' UTC:';
 
-        // Consumer Actions
-        //
-        switch ($action) {
-            case 'sendmailtocustomer':
-            $success=$this->sendMail->sendMailToCustomer($data['sendto'], $data['customerid'], $data['emailtemplate'], $data['storeid'], $data['sender']);
-                echo 'sendmailtocustomer:'.$data['sendto']. ':'. ($success ? 'SUCCESS':'ERROR').PHP_EOL;
-                    break;
-            case 'anothercustomaction':
-                    // custom action goes here...
-                    break;
-            default:
-                print_r($message).PHP_EOL;
+        $message=json_decode($message,true);
+
+        if (isset($message['action']) && isset($message['data']))
+        {
+            $action=$message['action'];
+            $data=$message['data'];
+
+            // Consumer Actions
+            //
+            switch ($action) {
+                case 'sendmailtocustomer':
+                $success=$this->sendMail->sendMailToCustomer($data['sendto'], $data['customerid'], $data['emailtemplate'], $data['storeid'], $data['sender']);
+                    echo $timestamp.'sendmailtocustomer:'.$data['sendto']. ':'. ($success ? 'SUCCESS':'ERROR').PHP_EOL;
+                        break;
+                case 'anothercustomaction':
+                        // custom action goes here...
+                        break;
+                default:
+                    echo $timestamp.json_encode($message).PHP_EOL;
+            }
         }
 
     }
