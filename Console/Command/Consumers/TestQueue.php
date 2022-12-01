@@ -71,14 +71,14 @@ class TestQueue extends Command
         $this->helper->publisher->execute($topicName,array(
             'action' => 'sendmailtocustomer',
             'data' => array(
-                'sendto' => 'paj@gaiterjones.com',
-                'customerid' => '48',
                 'emailtemplate' => '3',
                 'storeid' => 0,
                 'sender' => array(
                     'email' => 'paj@gaiterjones.com',
                     'name' => 'TEST'
                 )
+                'sendto' => 'paj@gaiterjones.com',
+                'customerid' => '48'
             )
         ));
 
@@ -86,11 +86,11 @@ class TestQueue extends Command
         $this->helper->publisher->execute($topicName,array(
             'action' => 'sendmailtocustomer',
             'data' => array(
-                'sendto' => 0,
-                'customerid' => '48',
                 'emailtemplate' => '3',
                 'storeid' => 0,
-                'sender' => 0
+                'sender' => 0,
+                'sendto' => 0,
+                'customerid' => '48'
             )
         ));
         */

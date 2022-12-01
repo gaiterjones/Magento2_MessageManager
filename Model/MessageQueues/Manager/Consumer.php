@@ -38,7 +38,7 @@ class Consumer
             //
             switch ($action) {
                 case 'sendmailtocustomer':
-                $success=$this->sendMail->sendMailToCustomer($data['sendto'], $data['customerid'], $data['emailtemplate'], $data['storeid'], $data['sender']);
+                $success=$this->sendMail->sendMailToCustomer($data['emailtemplate'], $data['storeid'], $data['sender'],$data['sendto'], $data['customerid']);
                     echo $timestamp.'sendmailtocustomer:'.$data['sendto']. ':'. ($success ? 'SUCCESS':'ERROR').PHP_EOL;
                         break;
                 case 'anothercustomaction':

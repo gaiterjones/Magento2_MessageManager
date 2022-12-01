@@ -52,7 +52,7 @@ class SendMail
      *
      * @return bool
      */
-    public function sendMailToCustomer($sendTo=false, $customerId=false, $emailTemplate, $storeId, $sender)
+    public function sendMailToCustomer($emailTemplate, $storeId, $sender, $sendTo=false, $customerId=false)
     {
 
         try {
