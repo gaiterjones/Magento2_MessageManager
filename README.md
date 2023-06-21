@@ -1,6 +1,6 @@
 
 # GAITERJONES MESSAGE MANAGER
-Magento 2 module to manage, configure and test RabbitMQ AMQP message queues.
+Magento 2 module to manage, configure and test RabbitMQ AMQP message queues. Includes observers for new order and customer registration with Pushover notification to mobile devies.
 
 https://blog.gaiterjones.com/magento-2-asynchronous-message-queue-management/
 

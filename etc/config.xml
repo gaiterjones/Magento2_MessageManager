@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <messagemanager>
+            <pushover>
+                <api_token/>
+                <api_user/>
+            </pushover>
+        </messagemanager>
+    </default>
+</config>

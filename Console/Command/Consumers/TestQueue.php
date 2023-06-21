@@ -63,6 +63,9 @@ class TestQueue extends Command
             'data' => array('message' => $message)
         ));
 
+        // !! RESTART CONSUMER AFTER MAKING ANY CHANGES 
+        //
+
         // EMAIL EXAMPLE
         // to CUSTOM EMAIL address i.e. admin
         // email template = id of email template

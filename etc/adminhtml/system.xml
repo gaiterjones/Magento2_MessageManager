@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="Gaiterjones" translate="label" sortOrder="50">
+            <label>Gaiterjones</label>
+        </tab>
+        <section id="messagemanager" translate="label" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Message Manager</label>
+            <tab>Gaiterjones</tab>
+            <resource>Gaiterjones_MessageManager::config_gaiterjones_messagemanager</resource>
+            <group id="pushover" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>PushOver Notification</label>
+                <field id="api_token" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>API Application Token</label>
+                    <comment>PushOver API Application Token</comment>
+                </field>
+                <field id="api_user" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>API User Key</label>
+                    <comment>PushOver API User Key</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

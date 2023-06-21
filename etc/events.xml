@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+	<event name="sales_order_place_after">
+		<observer name="gaiterjones_messagemanager_observer_sales_orderplaceafter_sales_order_place_after" instance="Gaiterjones\MessageManager\Observer\Sales\OrderPlaceAfter"/>
+	</event>
+	<event name="customer_register_success">
+		<observer name="gaiterjones_messagemanager_observer_customer_registersuccess_customer_register_success" instance="Gaiterjones\MessageManager\Observer\Customer\RegisterSuccess"/>
+	</event>
+</config>
